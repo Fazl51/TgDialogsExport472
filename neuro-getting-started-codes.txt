@@ -1,0 +1,30 @@
+﻿--- code block 1 ---
+curl -X POST 
+--- code block 2 ---
+
+
+const
+ client = 
+new
+ OpenAI({
+  
+apiKey
+: 
+"YOUR_NEUROAPI_KEY"
+,
+  
+- 
+baseUrl
+:
+ 
+"https://api.openai.com/v1"
+
+  
++ 
+baseUrl
+:
+ 
+"https://neuroapi.host/v1"
+
+});
+
