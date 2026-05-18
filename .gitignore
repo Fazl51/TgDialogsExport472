@@ -1,0 +1,9 @@
+Exports/
+Logs/
+Personas/
+*.session
+*.session-journal
+*.user
+*.suo
+bin/
+obj/

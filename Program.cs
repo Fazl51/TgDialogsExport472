@@ -42,11 +42,11 @@ namespace TgDialogsExport472
 
         // === Telegram auth ===
 
-        private const int API_ID = 30203725;
+        private static readonly int API_ID = ReadRequiredIntEnv("TG_API_ID");
 
-        private const string API_HASH = "31a5296192dad9e44475d8dafa840c0f";
+        private static readonly string API_HASH = ReadRequiredEnv("TG_API_HASH");
 
-        private const string PHONE_NUMBER = "+79608656677";
+        private static readonly string PHONE_NUMBER = ReadRequiredEnv("TG_PHONE_NUMBER");
 
         private const int PAGE_LIMIT = 100;
 
@@ -70,7 +70,7 @@ namespace TgDialogsExport472
 
         };
 
-        private const string NEUROAPI_KEY = "sk-hUrySVOzeVKvLC6hV8OMPwamHCamiOdG1e6u7eHthmX0MmgJ";
+        private static readonly string NEUROAPI_KEY = ReadRequiredEnv("NEUROAPI_KEY");
 
         private const string DEFAULT_MODEL = "gpt-5-nano";
 
@@ -3109,6 +3109,36 @@ private static readonly ThreadLocal<Random> _random = new ThreadLocal<Random>(()
             if (what == "password") { Console.Write("Пароль 2FA: "); return ReadPassword(); }
 
             return null;
+
+        }
+
+        private static string ReadRequiredEnv(string name)
+
+        {
+
+            var value = Environment.GetEnvironmentVariable(name);
+
+            if (string.IsNullOrWhiteSpace(value))
+
+                throw new InvalidOperationException("Required environment variable is missing: " + name);
+
+            return value.Trim();
+
+        }
+
+        private static int ReadRequiredIntEnv(string name)
+
+        {
+
+            var value = ReadRequiredEnv(name);
+
+            int parsed;
+
+            if (!int.TryParse(value, out parsed))
+
+                throw new InvalidOperationException("Environment variable must be an integer: " + name);
+
+            return parsed;
 
         }
 
